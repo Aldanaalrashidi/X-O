@@ -21,7 +21,7 @@
                                 <color key="backgroundColor" red="0.93896478091505187" green="0.94324358244794693" blue="0.95607998704663211" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="50"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title=" ">
+                                <state key="normal">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
@@ -34,7 +34,7 @@
                                 <color key="backgroundColor" red="0.93896478090000002" green="0.94324358239999995" blue="0.95607998699999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="50"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title=" ">
+                                <state key="normal">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
@@ -47,7 +47,7 @@
                                 <color key="backgroundColor" red="0.93896478090000002" green="0.94324358239999995" blue="0.95607998699999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="50"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title=" ">
+                                <state key="normal">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
@@ -60,7 +60,7 @@
                                 <color key="backgroundColor" red="0.93896478090000002" green="0.94324358239999995" blue="0.95607998699999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="50"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title=" ">
+                                <state key="normal">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
@@ -73,7 +73,7 @@
                                 <color key="backgroundColor" red="0.93896478090000002" green="0.94324358239999995" blue="0.95607998699999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="50"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title=" ">
+                                <state key="normal">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
@@ -86,7 +86,7 @@
                                 <color key="backgroundColor" red="0.93896478090000002" green="0.94324358239999995" blue="0.95607998699999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="50"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title=" ">
+                                <state key="normal">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
@@ -99,7 +99,7 @@
                                 <color key="backgroundColor" red="0.93896478090000002" green="0.94324358239999995" blue="0.95607998699999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="50"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title=" ">
+                                <state key="normal">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
@@ -111,8 +111,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.93896478090000002" green="0.94324358239999995" blue="0.95607998699999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="50"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title=" ">
+                                <state key="normal">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
@@ -160,7 +161,7 @@
                                 <color key="backgroundColor" red="0.93896478090000002" green="0.94324358239999995" blue="0.95607998699999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="50"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title=" ">
+                                <state key="normal">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>

@@ -22,13 +22,43 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var turnLabel: UILabel!
     
+    
     var buttons: [UIButton] = []
     var counter = 0
+    
+    var silly1Sound: AVAudioPlayer?
+    var silly2Sound: AVAudioPlayer?
+    
+    func playSilly1(){
+        let path = Bundle.main.path(forResource: "silly1.mp4", ofType: nil)!
+        let url = URL(fileURLWithPath: path)
+        
+        do{
+            silly1Sound = try AVAudioPlayer(contentsOf: url)
+            silly1Sound?.play()
+        } catch{
+            // couldn't load file
+        }
+    }
+    
+    func playSilly2(){
+        let path = Bundle.main.path(forResource: "silly2.mp4", ofType: nil)!
+        let url = URL(fileURLWithPath: path)
+        
+        do{
+            silly2Sound = try AVAudioPlayer(contentsOf: url)
+            silly2Sound?.play()
+        } catch{
+            // couldn't load file
+        }
+    }
     
     override func viewDidLoad() {
         buttons = [b1, b2, b3, b4, b5, b6, b7, b8, b9]
         super.viewDidLoad()
     }
+    
+    //let backgroundColorSource = BackgroundColorSource()
     
     @IBAction func press(_ sender: UIButton) {
         
@@ -36,13 +66,17 @@ class ViewController: UIViewController {
         print(counter)
         
         if counter % 2 == 0 {
+            playSilly1()
             sender.setTitle("X", for: .normal)
-            sender.setTitleColor(.blue, for: .normal)
+            sender.setTitleColor(.red, for: .normal)
+            sender.backgroundColor = UIColor.green
             turnLabel.text = "O Turn"
         }
         else{
+            playSilly2()
             sender.setTitle("O", for: .normal)
-            sender.setTitleColor(.red, for: .normal)
+            sender.setTitleColor(.blue, for: .normal)
+            sender.backgroundColor = UIColor.red
             turnLabel.text = "X Turn"
         }
         
@@ -88,9 +122,11 @@ class ViewController: UIViewController {
             b.setTitle("", for: .normal)
             b.titleLabel?.text = ""
             b.isEnabled = true
+            b.backgroundColor = UIColor.lightGray
         }
         counter = 0
         turnLabel.text = "X Turn"
+       // _ = backgroundColorSource.randomColor()
     }
     
     //music
@@ -127,5 +163,6 @@ class ViewController: UIViewController {
         }
 
     }
+    
     }
 
