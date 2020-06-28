@@ -8,6 +8,9 @@
 
 import AVFoundation
 import UIKit
+import AudioToolbox
+
+
 
 class ViewController: UIViewController {
     @IBOutlet weak var b1: UIButton!
@@ -19,15 +22,24 @@ class ViewController: UIViewController {
     @IBOutlet weak var b7: UIButton!
     @IBOutlet weak var b8: UIButton!
     @IBOutlet weak var b9: UIButton!
-    
+    @IBOutlet weak var xScore: UILabel!
+    @IBOutlet weak var oScore: UILabel!
+    @IBOutlet weak var reset: UIButton!
     @IBOutlet weak var turnLabel: UILabel!
     
     
     var buttons: [UIButton] = []
     var counter = 0
+    var alert:UIAlertController!
     
     var silly1Sound: AVAudioPlayer?
     var silly2Sound: AVAudioPlayer?
+    var cheer: AVAudioPlayer?
+    
+    var scoreX = 0
+    var scoreO = 0
+    
+    let backgroundColorSource = BackgroundColorSource()
     
     func playSilly1(){
         let path = Bundle.main.path(forResource: "silly1.mp4", ofType: nil)!
@@ -53,28 +65,38 @@ class ViewController: UIViewController {
         }
     }
     
+    func playCheer(){
+        let path = Bundle.main.path(forResource: "cheer.m4a", ofType: nil)!
+        let url = URL(fileURLWithPath: path)
+        
+        do{
+            cheer = try AVAudioPlayer(contentsOf: url)
+            cheer?.play()
+        } catch{
+            // couldn't load file
+        }
+    }
+    
     override func viewDidLoad() {
         buttons = [b1, b2, b3, b4, b5, b6, b7, b8, b9]
         super.viewDidLoad()
     }
     
-    //let backgroundColorSource = BackgroundColorSource()
-    
     @IBAction func press(_ sender: UIButton) {
         
         print("تم الضغط علي")
         print(counter)
-        
-        if counter % 2 == 0 {
+         if counter % 2 == 0 {
             playSilly1()
             sender.setTitle("X", for: .normal)
+            AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) { }
             sender.setTitleColor(.red, for: .normal)
             sender.backgroundColor = UIColor.green
             turnLabel.text = "O Turn"
-        }
-        else{
+        }else{
             playSilly2()
             sender.setTitle("O", for: .normal)
+            AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) { }
             sender.setTitleColor(.blue, for: .normal)
             sender.backgroundColor = UIColor.red
             turnLabel.text = "X Turn"
@@ -85,14 +107,20 @@ class ViewController: UIViewController {
         
         winning(winner: "X")
         winning(winner: "O")
+        
     }
     
     @IBAction func resetTapped() {
         self.restartGame()
     }
     
+    @IBAction func playAgain() {
+        self.restartGame()
+        self.restartGame2()
+    }
     
-    func winning(winner: String) {
+    
+        func winning(winner: String) {
         if  (b1.titleLabel?.text == winner && b2.titleLabel?.text == winner && b3.titleLabel?.text == winner) ||
             (b4.titleLabel?.text == winner && b5.titleLabel?.text == winner && b6.titleLabel?.text == winner) ||
             (b7.titleLabel?.text == winner && b8.titleLabel?.text == winner && b9.titleLabel?.text == winner) ||
@@ -104,16 +132,49 @@ class ViewController: UIViewController {
         {
             print("\(winner) is the winner 🎉")
             
-            let alertController = UIAlertController(title: "\(winner) is the WINNER 🎉", message: "Click on the play button to play again", preferredStyle: .alert)
+           if winner == "X"{
+                self.scoreX += 1
+                self.xScore.text = String(self.scoreX)
+            }
+            else if winner == "O"{
+                self.scoreO += 1
+                self.oScore.text = String(self.scoreO)
+            }
+            
+            self.restartGame()
+            
+            if scoreX == 3{
+            playCheer()
+            let alertController = UIAlertController(title: "\(winner) has won 3 times 🎉", message: "Click on the play button to play again", preferredStyle: .alert)
             let restartAction = UIAlertAction(title: "Play Again", style: .cancel) { (alert) in
                 
                 //Restart Game
                 self.restartGame()
+                }
+                alertController.addAction(restartAction)
+                present(alertController, animated: true, completion: nil)
+                self.restartGame2()
+                
             }
-            alertController.addAction(restartAction)
-            present(alertController, animated: true, completion: nil)
+                
+            else if scoreO == 3{
+                playCheer()
+                let alertController = UIAlertController(title: "\(winner) has won 3 times 🎉", message: "Click on the play button to play again", preferredStyle: .alert)
+                let restartAction = UIAlertAction(title: "Play Again", style: .cancel) { (alert) in
+                    
+                    //Restart Game
+                    self.restartGame()
+                    self.restartGame2()
+                    }
+                    alertController.addAction(restartAction)
+                    present(alertController, animated: true, completion: nil)
+            }
+            
         }
     }
+
+    
+    
     
     
     func restartGame()
@@ -122,13 +183,19 @@ class ViewController: UIViewController {
             b.setTitle("", for: .normal)
             b.titleLabel?.text = ""
             b.isEnabled = true
-            b.backgroundColor = UIColor.lightGray
+            b.backgroundColor = UIColor.white
         }
         counter = 0
         turnLabel.text = "X Turn"
-       // _ = backgroundColorSource.randomColor()
+        view.backgroundColor = BackgroundColorSource().randomColor()
     }
     
+    func restartGame2(){
+       self.oScore.text = " "
+        self.xScore.text = " "
+        scoreO = 0
+        scoreX = 0
+    }
     //music
     
     @IBOutlet var music : UIButton!
@@ -161,7 +228,6 @@ class ViewController: UIViewController {
                 print("something went wrong")
             }
         }
-
     }
     
     }
