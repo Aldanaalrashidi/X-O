@@ -22,25 +22,30 @@ class ViewController: UIViewController {
     @IBOutlet weak var b7: UIButton!
     @IBOutlet weak var b8: UIButton!
     @IBOutlet weak var b9: UIButton!
+    
     @IBOutlet weak var xScore: UILabel!
     @IBOutlet weak var oScore: UILabel!
+    
     @IBOutlet weak var reset: UIButton!
     @IBOutlet weak var turnLabel: UILabel!
     
-    
+    //buttons
     var buttons: [UIButton] = []
     var counter = 0
     var alert:UIAlertController!
     
+    //all music
     var silly1Sound: AVAudioPlayer?
     var silly2Sound: AVAudioPlayer?
     var cheer: AVAudioPlayer?
     
+    //X and O score counter
     var scoreX = 0
     var scoreO = 0
     
     let backgroundColorSource = BackgroundColorSource()
     
+    //X music
     func playSilly1(){
         let path = Bundle.main.path(forResource: "silly1.mp4", ofType: nil)!
         let url = URL(fileURLWithPath: path)
@@ -53,6 +58,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //O music
     func playSilly2(){
         let path = Bundle.main.path(forResource: "silly2.mp4", ofType: nil)!
         let url = URL(fileURLWithPath: path)
@@ -60,11 +66,12 @@ class ViewController: UIViewController {
         do{
             silly2Sound = try AVAudioPlayer(contentsOf: url)
             silly2Sound?.play()
-        } catch{
+        }catch{
             // couldn't load file
         }
     }
     
+    //winning music
     func playCheer(){
         let path = Bundle.main.path(forResource: "cheer.m4a", ofType: nil)!
         let url = URL(fileURLWithPath: path)
@@ -72,7 +79,7 @@ class ViewController: UIViewController {
         do{
             cheer = try AVAudioPlayer(contentsOf: url)
             cheer?.play()
-        } catch{
+        }catch{
             // couldn't load file
         }
     }
@@ -82,10 +89,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    //9 buttons
     @IBAction func press(_ sender: UIButton) {
         
         print("تم الضغط علي")
         print(counter)
+        
          if counter % 2 == 0 {
             playSilly1()
             sender.setTitle("X", for: .normal)
@@ -110,10 +119,12 @@ class ViewController: UIViewController {
         
     }
     
+    //Reset button
     @IBAction func resetTapped() {
         self.restartGame()
     }
     
+    //Play Again button
     @IBAction func playAgain() {
         self.restartGame()
         self.restartGame2()
@@ -131,38 +142,37 @@ class ViewController: UIViewController {
             (b3.titleLabel?.text == winner && b5.titleLabel?.text == winner && b7.titleLabel?.text == winner)
         {
             print("\(winner) is the winner 🎉")
+            self.changeColor()
             
+            //counting the scores
            if winner == "X"{
                 self.scoreX += 1
                 self.xScore.text = String(self.scoreX)
             }
-            else if winner == "O"{
+          else if winner == "O"{
                 self.scoreO += 1
                 self.oScore.text = String(self.scoreO)
             }
             
             self.restartGame()
             
+            //winner if the score is 3
             if scoreX == 3{
             playCheer()
             let alertController = UIAlertController(title: "\(winner) has won 3 times 🎉", message: "Click on the play button to play again", preferredStyle: .alert)
             let restartAction = UIAlertAction(title: "Play Again", style: .cancel) { (alert) in
-                
-                //Restart Game
+            
                 self.restartGame()
+                self.restartGame2()
                 }
                 alertController.addAction(restartAction)
                 present(alertController, animated: true, completion: nil)
-                self.restartGame2()
-                
             }
-                
             else if scoreO == 3{
                 playCheer()
                 let alertController = UIAlertController(title: "\(winner) has won 3 times 🎉", message: "Click on the play button to play again", preferredStyle: .alert)
                 let restartAction = UIAlertAction(title: "Play Again", style: .cancel) { (alert) in
                     
-                    //Restart Game
                     self.restartGame()
                     self.restartGame2()
                     }
@@ -176,7 +186,7 @@ class ViewController: UIViewController {
     
     
     
-    
+   // first restart func is for the buttons the second is for the score
     func restartGame()
     {
         for b in buttons{
@@ -187,7 +197,6 @@ class ViewController: UIViewController {
         }
         counter = 0
         turnLabel.text = "X Turn"
-        view.backgroundColor = BackgroundColorSource().randomColor()
     }
     
     func restartGame2(){
@@ -196,8 +205,14 @@ class ViewController: UIViewController {
         scoreO = 0
         scoreX = 0
     }
-    //music
     
+    //change color every time someone wins
+    func changeColor(){
+       view.backgroundColor = BackgroundColorSource().randomColor()
+    }
+    
+   
+     //Background music
     @IBOutlet var music : UIButton!
     
     var player: AVAudioPlayer?
@@ -229,6 +244,5 @@ class ViewController: UIViewController {
             }
         }
     }
-    
     }
 
