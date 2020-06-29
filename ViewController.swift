@@ -38,6 +38,8 @@ class ViewController: UIViewController {
     var silly1Sound: AVAudioPlayer?
     var silly2Sound: AVAudioPlayer?
     var cheer: AVAudioPlayer?
+    var tie: AVAudioPlayer?
+    var goodJob: AVAudioPlayer?
     
     //X and O score counter
     var scoreX = 0
@@ -83,6 +85,32 @@ class ViewController: UIViewController {
             // couldn't load file
         }
     }
+    
+    func playTie(){
+        let path = Bundle.main.path(forResource: "tie.m4a", ofType: nil)!
+        let url = URL(fileURLWithPath: path)
+        
+        do{
+            tie = try AVAudioPlayer(contentsOf: url)
+            tie?.play()
+        }catch{
+            // couldn't load file
+        }
+    }
+    
+    
+    func playGoodJob(){
+        let path = Bundle.main.path(forResource: "goodJob.m4a", ofType: nil)!
+        let url = URL(fileURLWithPath: path)
+        
+        do{
+            cheer = try AVAudioPlayer(contentsOf: url)
+            cheer?.play()
+        }catch{
+            // couldn't load file
+        }
+    }
+    
     
     override func viewDidLoad() {
         buttons = [b1, b2, b3, b4, b5, b6, b7, b8, b9]
@@ -131,7 +159,6 @@ class ViewController: UIViewController {
         self.restartScore()
     }
     
-    
         func winning(winner: String) {
         if  (b1.titleLabel?.text == winner && b2.titleLabel?.text == winner && b3.titleLabel?.text == winner) ||
             (b4.titleLabel?.text == winner && b5.titleLabel?.text == winner && b6.titleLabel?.text == winner) ||
@@ -156,15 +183,11 @@ class ViewController: UIViewController {
                 self.scoreO += 1
                 self.oScore.text = String(self.scoreO)
            }
-           
             
-            self.restartGame()
-            
-            //winner if the score is 3
-            
-            
-            if scoreO != 3 && scoreX != 3{
-                
+            //if: a point everytime the win
+            //else if: play again if they have 3 points in total
+            if scoreO != 3 && scoreX != 3 {
+                playGoodJob()
                 let alertController = UIAlertController(title: "\(winner) has a POINT 👏🏼", message: "Click on the button to continue", preferredStyle: .alert)
                 let restartAction = UIAlertAction(title: "Countinue", style: .cancel) { (alert) in
                     
@@ -188,14 +211,15 @@ class ViewController: UIViewController {
             }
 
         }
-        else if counter == 9 && winner != "X" && winner != "X"{
+            // ELSE if tie (no body wins)
+            else if counter == 9 && winner == "X"{
+            playTie()
             let alertController = UIAlertController(title: "Hardluck, it's a TIE🙃", message: "Click on the button to continue", preferredStyle: .alert)
             let restartAction = UIAlertAction(title: "Continue", style: .cancel) { (alert) in
-            
                 self.restartGame()
-                }
-                alertController.addAction(restartAction)
-                present(alertController, animated: true, completion: nil)
+            }
+            alertController.addAction(restartAction)
+            present(alertController, animated: true, completion: nil)
             }
     }
 
@@ -228,6 +252,7 @@ class ViewController: UIViewController {
        view.backgroundColor = BackgroundColorSource().randomColor()
     }
     
+   
    
      //Background music
     @IBOutlet var music : UIButton!
