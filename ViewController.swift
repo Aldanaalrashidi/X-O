@@ -102,7 +102,8 @@ class ViewController: UIViewController {
             sender.setTitleColor(.red, for: .normal)
             sender.backgroundColor = UIColor.green
             turnLabel.text = "O Turn"
-        }else{
+         }
+         else{
             playSilly2()
             sender.setTitle("O", for: .normal)
             AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) { }
@@ -116,8 +117,8 @@ class ViewController: UIViewController {
         
         winning(winner: "X")
         winning(winner: "O")
-        
     }
+    
     
     //Reset button
     @IBAction func resetTapped() {
@@ -127,7 +128,7 @@ class ViewController: UIViewController {
     //Play Again button
     @IBAction func playAgain() {
         self.restartGame()
-        self.restartGame2()
+        self.restartScore()
     }
     
     
@@ -141,8 +142,10 @@ class ViewController: UIViewController {
             (b1.titleLabel?.text == winner && b5.titleLabel?.text == winner && b9.titleLabel?.text == winner) ||
             (b3.titleLabel?.text == winner && b5.titleLabel?.text == winner && b7.titleLabel?.text == winner)
         {
+            
             print("\(winner) is the winner 🎉")
             self.changeColor()
+            
             
             //counting the scores
            if winner == "X"{
@@ -152,35 +155,48 @@ class ViewController: UIViewController {
           else if winner == "O"{
                 self.scoreO += 1
                 self.oScore.text = String(self.scoreO)
-            }
+           }
+           
             
             self.restartGame()
             
             //winner if the score is 3
-            if scoreX == 3{
+            
+            
+            if scoreO != 3 && scoreX != 3{
+                
+                let alertController = UIAlertController(title: "\(winner) has a POINT 👏🏼", message: "Click on the button to continue", preferredStyle: .alert)
+                let restartAction = UIAlertAction(title: "Countinue", style: .cancel) { (alert) in
+                    
+                    self.restartGame()
+                    
+                }
+                alertController.addAction(restartAction)
+                present(alertController, animated: true, completion: nil)
+            }
+                       
+            else if scoreX == 3 || scoreO == 3{
             playCheer()
             let alertController = UIAlertController(title: "\(winner) has won 3 times 🎉", message: "Click on the play button to play again", preferredStyle: .alert)
             let restartAction = UIAlertAction(title: "Play Again", style: .cancel) { (alert) in
             
                 self.restartGame()
-                self.restartGame2()
+                self.restartScore()
                 }
                 alertController.addAction(restartAction)
                 present(alertController, animated: true, completion: nil)
             }
-            else if scoreO == 3{
-                playCheer()
-                let alertController = UIAlertController(title: "\(winner) has won 3 times 🎉", message: "Click on the play button to play again", preferredStyle: .alert)
-                let restartAction = UIAlertAction(title: "Play Again", style: .cancel) { (alert) in
-                    
-                    self.restartGame()
-                    self.restartGame2()
-                    }
-                    alertController.addAction(restartAction)
-                    present(alertController, animated: true, completion: nil)
-            }
-            
+
         }
+        else if counter == 9 && winner != "X" && winner != "X"{
+            let alertController = UIAlertController(title: "Hardluck, it's a TIE🙃", message: "Click on the button to continue", preferredStyle: .alert)
+            let restartAction = UIAlertAction(title: "Continue", style: .cancel) { (alert) in
+            
+                self.restartGame()
+                }
+                alertController.addAction(restartAction)
+                present(alertController, animated: true, completion: nil)
+            }
     }
 
     
@@ -199,12 +215,13 @@ class ViewController: UIViewController {
         turnLabel.text = "X Turn"
     }
     
-    func restartGame2(){
-       self.oScore.text = " "
+    func restartScore(){
+        self.oScore.text = " "
         self.xScore.text = " "
         scoreO = 0
         scoreX = 0
     }
+    
     
     //change color every time someone wins
     func changeColor(){
