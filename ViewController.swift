@@ -86,6 +86,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // tie music
     func playTie(){
         let path = Bundle.main.path(forResource: "tie.m4a", ofType: nil)!
         let url = URL(fileURLWithPath: path)
